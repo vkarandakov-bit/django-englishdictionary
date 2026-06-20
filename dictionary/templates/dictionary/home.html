@@ -1,0 +1,32 @@
+{% extends 'dictionary/base.html' %}
+
+{% block title %}EnglishCard — Вход{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h1 class="h3 mb-3">Привет 👋</h1>
+        <p>Давай попрактикуемся в английском языке. Тренировки можешь проходить в удобном для себя темпе.</p>
+        <p>У тебя есть возможность использовать тренажёр, как конструктор, и собирать свою собственную базу для обучения. Для этого воспользуйся инструментами:</p>
+        <ul>
+            <li>добавить слово ➕,</li>
+            <li>удалить слово 🗑️.</li>
+        </ul>
+        <p class="mb-4">Ну что, начнём ⬇️</p>
+
+        <form method="post" class="row g-3">
+            {% csrf_token %}
+            <div class="col-12">
+                <label class="form-label" for="{{ form.username.id_for_label }}">Введи свой логин/имя для начала тренировки</label>
+                {{ form.username }}
+                {% if form.username.errors %}
+                    <div class="text-danger small">{{ form.username.errors|join:', ' }}</div>
+                {% endif %}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Войти 🚀</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

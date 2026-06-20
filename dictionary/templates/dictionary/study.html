@@ -1,0 +1,48 @@
+{% extends 'dictionary/base.html' %}
+
+{% block title %}EnglishCard — Тренажёр{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h1 class="h4 mb-4">Проверь свои знания</h1>
+
+        {% if not_enough_words %}
+            <div class="alert alert-warning">
+                Недостаточно слов для запуска викторины!
+            </div>
+            <p class="mb-0">
+                Сейчас в вашем распоряжении всего <strong>{{ words_count }}</strong> из 4 необходимых слов.
+                Пожалуйста, перейдите в раздел «Добавить слово» и внесите ещё <strong>{{ missing_count }}</strong> шт.
+            </p>
+        {% else %}
+            {% if feedback %}
+                <div class="alert alert-{% if feedback.0 == 'success' %}success{% else %}danger{% endif %}">
+                    {% if feedback.0 == 'success' %}🎉{% else %}❌{% endif %} {{ feedback.1 }}
+                </div>
+            {% endif %}
+
+            <p class="text-muted mb-2">Как переводится слово:</p>
+            <div class="quiz-word fw-bold mb-4">{{ question.russian_word|upper }}</div>
+
+            <form method="post" class="row g-3 mb-4">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="answer">
+                {% for option in question.options %}
+                    <div class="col-md-6">
+                        <button type="submit" name="option" value="{{ option }}" class="btn btn-outline-primary w-100 option-btn">
+                            {{ option|capfirst }}
+                        </button>
+                    </div>
+                {% endfor %}
+            </form>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="next">
+                <button type="submit" class="btn btn-primary">Следующее слово</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'dictionary/base.html' %}
+
+{% block title %}EnglishCard — Статистика{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h1 class="h4 mb-4">Ваша статистика изучения</h1>
+
+        {% if stats.attempts == 0 %}
+            <p class="mb-0">Прогресс появится после первых ответов на карточки!</p>
+        {% else %}
+            <div class="row g-3 mb-4">
+                <div class="col-md-3 col-6">
+                    <div class="border rounded p-3 bg-white h-100">
+                        <div class="text-muted small">Слов в обороте</div>
+                        <div class="fs-4 fw-bold">{{ stats.total_words }}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="border rounded p-3 bg-white h-100">
+                        <div class="text-muted small">Всего попыток</div>
+                        <div class="fs-4 fw-bold">{{ stats.attempts }}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="border rounded p-3 bg-white h-100">
+                        <div class="text-muted small">Правильных ответов</div>
+                        <div class="fs-4 fw-bold">{{ stats.correct }}</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="border rounded p-3 bg-white h-100">
+                        <div class="text-muted small">Точность</div>
+                        <div class="fs-4 fw-bold">{{ accuracy|floatformat:1 }}%</div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="h5">График успешности тренировок</h2>
+            <div class="progress" style="height: 28px;">
+                <div class="progress-bar" role="progressbar" style="width: {{ accuracy }}%;">
+                    {{ accuracy|floatformat:1 }}%
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

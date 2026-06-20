@@ -1,0 +1,49 @@
+{% extends 'dictionary/base.html' %}
+
+{% block title %}EnglishCard — Схема БД{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm border-0">
+    <div class="card-body p-4">
+        <h1 class="h4 mb-3">Реляционная схема базы данных</h1>
+        <p class="text-muted">
+            Архитектура хранения данных приложения EnglishCard.
+            Каждое личное слово и статистика строго изолированы для текущего пользователя.
+        </p>
+
+        <div class="row g-3 mb-4">
+            {% for table in schema_tables %}
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered schema-table mb-0 {{ table.color }}">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">{{ table.name }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for field in table.fields %}
+                                    <tr>
+                                        <td>
+                                            {{ field.name }}
+                                            {% if field.primary_key %} 🔑{% endif %}
+                                        </td>
+                                        <td class="text-muted">{{ field.type }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="h5">Связи</h2>
+        <ul class="mb-0">
+            {% for relation in relations %}
+                <li><code>{{ relation.0 }}</code> → <code>{{ relation.1 }}</code></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
