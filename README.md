@@ -16,7 +16,6 @@
 ## Быстрый запуск
 
 ```bash
-cd englishdictionary-django
 python -m pip install -r requirements.txt
 python manage.py migrate
 python manage.py seed_common_words
