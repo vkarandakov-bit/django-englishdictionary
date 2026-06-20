@@ -41,8 +41,8 @@ DB_NAME=english_card
 
 ## Структура
 
-- `dictionary/models.py` — модели БД (`users`, `common_words`, `user_words`, `learning_stats`)
-- `dictionary/services.py` — бизнес-логика (аналог `database.py`)
-- `dictionary/views.py` — страницы приложения (аналог `user_interface.py`)
+- `dictionary/models.py` — модели БД 
+- `dictionary/services.py` — бизнес-логика 
+- `dictionary/views.py` — страницы приложения 
 - `dictionary/templates/` — HTML-шаблоны интерфейса
 
